@@ -61,6 +61,6 @@ class Cart(object):
         del self.session[settings.CART_SESSION_ID]
         self.save()     
 
-    def get_local_price(self):
+    def get_total_price(self):
         return sum(Decimal(item['price'])*item['quantity'] for item in 
                     self.cart.values())          

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,10 +65,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
 ]
+
+#The cart context processor will be executed every time a template is
+#rendered using Django's RequestContext 
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
 
@@ -126,3 +131,10 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media/')
 
 
 CART_SESSION_ID='cart'
+
+"""
+This is the key that you are going to use to store the cart in the user session. Since
+Django sessions are managed per visitor, you can use the same cart session key for
+all sessions.
+
+"""

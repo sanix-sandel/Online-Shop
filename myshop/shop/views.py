@@ -16,7 +16,6 @@ def product_list(request, category_slug=None):
 
 
 
-
 def product_detail(request, id, slug):
     product=get_object_or_404(Product,
                             id=id,
