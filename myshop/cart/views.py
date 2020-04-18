@@ -4,11 +4,12 @@ from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
 
-@require_POST
+@require_POST#Only allow post request
 def cart_add(request, product_id):
     cart=Cart(request)
     product=get_object_or_404(Product, id=product_id)
-    form=CartAddProductForm(request.POST)
+    form=CartAddProductForm(request.POST)#request.POST is a dictionary-like 
+    #object that lets you access submitted data by key name.
     if form.is_valid():
         cd=form.cleaned_data
         cart.add(product=product,
