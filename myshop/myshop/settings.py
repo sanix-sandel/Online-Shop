@@ -72,7 +72,7 @@ TEMPLATES = [
 ]
 
 #The cart context processor will be executed every time a template is
-#rendered using Django's RequestContext 
+#rendered using Django's RequestContext
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
 
@@ -138,3 +138,5 @@ Django sessions are managed per visitor, you can use the same cart session key f
 all sessions.
 
 """
+
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'

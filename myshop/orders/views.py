@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
-
+from .tasks import order_created
 
 def order_create(request):
     cart=Cart(request)#we'll obtain the current cart from session
@@ -17,6 +17,7 @@ def order_create(request):
                                         quantity=item['quantity'])
             #Clear the cart
             cart.clear()
+            order_created.delay(order.id)
             return render(request, 'orders/order/created.html',
                             {'order':order})
     else:#Get request instanciates the OrderCreateForm form and renders the
@@ -24,13 +25,13 @@ def order_create(request):
         form=OrderCreateForm()
     return render(request,
                  'orders/order/create.html',
-                 {'cart':cart, 'form':form})  
+                 {'cart':cart, 'form':form})
 
 
 #Line 9. Post request validates the data sent in the request. If the data is
-# valid , we create a new order in the database using order=form.save().                                        
+# valid , we create a new order in the database using order=form.save().
 
-#we iterate over the cart items and create an OrderItem for each of them. 
+#we iterate over the cart items and create an OrderItem for each of them.
 #Finally, we clear the cart content and render the template orders/order/created.html
 
 # Create your views here.
