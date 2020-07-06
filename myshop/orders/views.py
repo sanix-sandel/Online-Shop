@@ -21,8 +21,8 @@ def order_create(request):
             #Clear the cart
             cart.clear()
             order_created.delay(order.id)
-            return render(request, 'orders/order/created.html',
-                            {'order':order})
+            request.session['order_id']=order.id#set the order in the session
+            return redirect(reverse('payment:process'))#for payment
     else:#Get request instanciates the OrderCreateForm form and renders the
         #orders/order/create.html
         form=OrderCreateForm()
