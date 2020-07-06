@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,20 @@ all sessions.
 """
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = '6vzmpjrmnt64cs35'
+BRAINTREE_PUBLIC_KEY = 'zppxstfdtkf9tr3t'
+BRAINTREE_PRIVATE_KEY = '88a10177481e212a3ac2d0f4102bd54c'
+# Merchant ID
+# Public Key
+# Private key
+import braintree
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
